@@ -31,6 +31,8 @@
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem_file = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.jsonTreeView = new System.Windows.Forms.TreeView();
             this.jsonTextBox = new System.Windows.Forms.TextBox();
@@ -43,8 +45,7 @@
             this.applyButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.addButton = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,8 +72,20 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.newToolStripMenuItem.Text = "New";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(100, 6);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // statusStrip
             // 
@@ -130,14 +143,14 @@
             // 
             this.keyTextBox.Location = new System.Drawing.Point(473, 28);
             this.keyTextBox.Name = "keyTextBox";
-            this.keyTextBox.Size = new System.Drawing.Size(299, 21);
+            this.keyTextBox.Size = new System.Drawing.Size(204, 21);
             this.keyTextBox.TabIndex = 7;
             // 
             // valueTextBox
             // 
             this.valueTextBox.Location = new System.Drawing.Point(473, 81);
             this.valueTextBox.Name = "valueTextBox";
-            this.valueTextBox.Size = new System.Drawing.Size(299, 21);
+            this.valueTextBox.Size = new System.Drawing.Size(204, 21);
             this.valueTextBox.TabIndex = 8;
             // 
             // typeComboBox
@@ -146,14 +159,14 @@
             this.typeComboBox.FormattingEnabled = true;
             this.typeComboBox.Location = new System.Drawing.Point(473, 55);
             this.typeComboBox.Name = "typeComboBox";
-            this.typeComboBox.Size = new System.Drawing.Size(121, 20);
+            this.typeComboBox.Size = new System.Drawing.Size(204, 20);
             this.typeComboBox.TabIndex = 9;
             // 
             // applyButton
             // 
-            this.applyButton.Location = new System.Drawing.Point(587, 108);
+            this.applyButton.Location = new System.Drawing.Point(683, 28);
             this.applyButton.Name = "applyButton";
-            this.applyButton.Size = new System.Drawing.Size(185, 23);
+            this.applyButton.Size = new System.Drawing.Size(89, 74);
             this.applyButton.TabIndex = 10;
             this.applyButton.Text = "Apply";
             this.applyButton.UseVisualStyleBackColor = true;
@@ -161,7 +174,7 @@
             // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(392, 108);
+            this.deleteButton.Location = new System.Drawing.Point(587, 108);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(185, 23);
             this.deleteButton.TabIndex = 11;
@@ -173,23 +186,22 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // openToolStripMenuItem
+            // addButton
             // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.addButton.Location = new System.Drawing.Point(392, 108);
+            this.addButton.Name = "addButton";
+            this.addButton.Size = new System.Drawing.Size(185, 23);
+            this.addButton.TabIndex = 12;
+            this.addButton.Text = "Add";
+            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.addButton);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.applyButton);
             this.Controls.Add(this.typeComboBox);
@@ -202,6 +214,7 @@
             this.Controls.Add(this.jsonTreeView);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
+            this.HelpButton = true;
             this.MainMenuStrip = this.menuStrip;
             this.Name = "mainForm";
             this.Text = "Json Editor";
@@ -232,6 +245,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.Button addButton;
 
     }
 }
