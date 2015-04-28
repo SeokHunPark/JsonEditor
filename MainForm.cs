@@ -182,9 +182,6 @@ namespace JsonEditor
 
         private void applyButton_Click(object sender, EventArgs e)
         {
-            if (keyTextBox.Text == "")
-                return;
-
             if (_selectedNode == null)
                 return;
 
@@ -253,9 +250,6 @@ namespace JsonEditor
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            if (keyTextBox.Text == "")
-                return;
-
             if (_rootNode == null)
                 return;
 
@@ -287,6 +281,13 @@ namespace JsonEditor
                 //_loadedJson = null;
                 //_loadedJson = _jsonEditor.LoadJson("D:\\WORK\\JsonEditor\\game_item.json");
                 JsonObjectCollection loadedJson = _jsonEditor.LoadJson(openFileDialog1.FileName);
+
+                if (loadedJson == null)
+                {
+                    MessageBox.Show("잘못된 Json 형식입니다.", "Error", MessageBoxButtons.OK);
+                    return;
+                }
+
                 _filePath = openFileDialog1.FileName;
 
                 ViewOnTextBox(loadedJson);
@@ -304,8 +305,10 @@ namespace JsonEditor
             }
             catch (Exception exception)
             {
+                MessageBox.Show("잘못된 Json 형식입니다.", "Error", MessageBoxButtons.OK);
                 Console.WriteLine(exception.Message);
-                jsonTextBox.Text = "잘못된 Json 형식 입니다.";
+                //jsonTextBox.Text = "잘못된 Json 형식 입니다.";
+                return;
             }
             jsonTextBox.Text = jsonString;
         }

@@ -32,6 +32,10 @@ namespace JsonEditor
             {
                 string jsonString = streamReader.ReadToEnd();
                 JsonObjectCollection json = StringToJson(jsonString);
+                
+                //string[] stringArray = filePath.Split('\\');
+                //json.Name = stringArray[stringArray.Length - 1];
+                //Console.WriteLine(stringArray[stringArray.Length - 1]);
 
                 return json;
             }
