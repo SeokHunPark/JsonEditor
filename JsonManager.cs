@@ -60,5 +60,42 @@ namespace JsonEditor
         {
             return json.ToString();
         }
+
+        public static JsonObject CreateJsonObject(string key, string value, string valueType)
+        {
+            JsonObject jsonObject = null;
+            if (valueType == "Json")
+            {
+                jsonObject = new JsonObjectCollection();
+                jsonObject.Name = key;
+            }
+            else if (valueType == "List")
+            {
+                jsonObject = new JsonArrayCollection();
+                jsonObject.Name = key;
+            }
+            else if (valueType == "String")
+            {
+                jsonObject = new JsonStringValue(key, value);
+            }
+            else if (valueType == "Integer")
+            {
+                jsonObject = new JsonNumericValue(key, Convert.ToInt32(value));
+            }
+            else if (valueType == "Float")
+            {
+                jsonObject = new JsonNumericValue(key, Convert.ToSingle(value));
+            }
+            else if (valueType == "Double")
+            {
+                jsonObject = new JsonNumericValue(key, Convert.ToDouble(value));
+            }
+            else if (valueType == "Boolean")
+            {
+                jsonObject = new JsonBooleanValue(key, Convert.ToBoolean(value));
+            }
+
+            return jsonObject;
+        }
     }
 }

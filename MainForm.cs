@@ -136,16 +136,17 @@ namespace JsonEditor
 
                 JsonObject jsonObject = node.Tag as JsonObject;
                 keyTextBox.Text = jsonObject.Name;
+                valueTextBox.Enabled = true;
                 //Console.WriteLine(jsonObject.GetType().ToString());
 
                 if (jsonObject.GetType() == typeof(JsonArrayCollection))
                 {
-                    valueTextBox.Text = "JsonObjectList";
+                    valueTextBox.Text = "";
                     typeComboBox.SelectedIndex = (int)ValueType.List;
                 }
                 if (jsonObject.GetType() == typeof(JsonObjectCollection))
                 {
-                    valueTextBox.Text = "JsonObject";
+                    valueTextBox.Text = "";
                     typeComboBox.SelectedIndex = (int)ValueType.Json;
                 }
                 else if (jsonObject.GetType() == typeof(JsonNumericValue))
@@ -181,19 +182,24 @@ namespace JsonEditor
 
         private void applyButton_Click(object sender, EventArgs e)
         {
+            if (keyTextBox.Text == "")
+                return;
 
             if (_selectedNode == null)
                 return;
 
-            if (_selectedNode.Tag.GetType() == typeof(JsonObjectCollection))
-                return;
-
             string key = keyTextBox.Text;
-            var value = valueTextBox.Text;
+            string value = "";
+
+            if (_selectedNode.Tag.GetType() != typeof(JsonObjectCollection) || _selectedNode.Tag.GetType() != typeof(JsonArrayCollection))
+            {
+                value = valueTextBox.Text;
+            }
 
             try
             {
-                UpdateTreeNodeJson(_selectedNode, key, value);
+                //UpdateTreeNodeJson(_selectedNode, key, value);
+                _selectedNode.Tag = JsonManager.CreateJsonObject(key, value, typeComboBox.SelectedItem.ToString());
             }
             catch (Exception exception)
             {
@@ -206,32 +212,6 @@ namespace JsonEditor
             ViewOnTreeView(json);
 
             _jsonEditor.SaveJson(json, _filePath);
-        }
-
-        private void UpdateTreeNodeJson(TreeNode treeNode, string key, string value)
-        {
-            JsonObject jsonObject = null;
-            if (typeComboBox.SelectedItem.ToString() == "String")
-            {
-                jsonObject = new JsonStringValue(key, value);
-            }
-            else if (typeComboBox.SelectedItem.ToString() == "Integer")
-            {
-                jsonObject = new JsonNumericValue(key, Convert.ToInt32(value));
-            }
-            else if (typeComboBox.SelectedItem.ToString() == "Float")
-            {
-                jsonObject = new JsonNumericValue(key, Convert.ToSingle(value));
-            }
-            else if (typeComboBox.SelectedItem.ToString() == "Double")
-            {
-                jsonObject = new JsonNumericValue(key, Convert.ToDouble(value));
-            }
-            else if (typeComboBox.SelectedItem.ToString() == "Boolean")
-            {
-                jsonObject = new JsonBooleanValue(key, Convert.ToBoolean(value));
-            }
-            treeNode.Tag = jsonObject;
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -273,14 +253,31 @@ namespace JsonEditor
 
         private void addButton_Click(object sender, EventArgs e)
         {
+            if (keyTextBox.Text == "")
+                return;
+
             if (_rootNode == null)
                 return;
 
             if (_selectedNode == null)
                 return;
 
-            AddNodeForm addNodeWindow = AddNodeForm.GetInstance();
-            addNodeWindow.Show();
+            string key = keyTextBox.Text;
+            var value = valueTextBox.Text;
+
+            TreeNode childNode = new TreeNode();
+            childNode.Text = key + " : " + value;
+            childNode.Tag = JsonManager.CreateJsonObject(keyTextBox.Text, valueTextBox.Text, typeComboBox.SelectedItem.ToString());
+            _selectedNode.Nodes.Add(childNode);
+
+            JsonObjectCollection json = _jsonEditor.JsonTreeNodeToJsonCollection(_rootNode);
+            ViewOnTextBox(json);
+            ViewOnTreeView(json);
+
+            _jsonEditor.SaveJson(json, _filePath);
+
+            //AddNodeForm addNodeWindow = AddNodeForm.GetInstance();
+            //addNodeWindow.Show();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -317,7 +314,6 @@ namespace JsonEditor
         {
             jsonTreeView.Nodes.Clear();
 
-            //TreeNode tree = JsonManager.JsonObjectToTreeNode(json);
             TreeNode tree = _jsonEditor.JsonObjectToTreeNode(json);
             jsonTreeView.Nodes.Add(tree);
             jsonTreeView.ExpandAll();
@@ -326,6 +322,15 @@ namespace JsonEditor
             _rootNode = tree;
         }
 
-        
+        private void ViewOnTreeView(TreeNode tree)
+        {
+            jsonTreeView.Nodes.Clear();
+
+            jsonTreeView.Nodes.Add(tree);
+            jsonTreeView.ExpandAll();
+            jsonTreeView.SelectedNode = jsonTreeView.Nodes[0];
+
+            _rootNode = tree;
+        }
     }
 }
