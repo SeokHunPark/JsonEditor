@@ -97,9 +97,9 @@
             // 
             // jsonTreeView
             // 
-            this.jsonTreeView.Location = new System.Drawing.Point(392, 137);
+            this.jsonTreeView.Location = new System.Drawing.Point(392, 166);
             this.jsonTreeView.Name = "jsonTreeView";
-            this.jsonTreeView.Size = new System.Drawing.Size(380, 399);
+            this.jsonTreeView.Size = new System.Drawing.Size(380, 370);
             this.jsonTreeView.TabIndex = 2;
             this.jsonTreeView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.jsonTreeView_MouseDown);
             // 
@@ -174,9 +174,9 @@
             // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(587, 108);
+            this.deleteButton.Location = new System.Drawing.Point(392, 137);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(185, 23);
+            this.deleteButton.Size = new System.Drawing.Size(380, 23);
             this.deleteButton.TabIndex = 11;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
@@ -190,7 +190,7 @@
             // 
             this.addButton.Location = new System.Drawing.Point(392, 108);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(185, 23);
+            this.addButton.Size = new System.Drawing.Size(380, 23);
             this.addButton.TabIndex = 12;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
