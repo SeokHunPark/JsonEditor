@@ -16,6 +16,14 @@ namespace JsonEditor
             
         }
 
+        public TreeNode CreateJsonTreeNode()
+        {
+            TreeNode newTreeNode = new TreeNode();
+            newTreeNode.Tag = JsonManager.CreateJsonObject("", "", "Json");
+
+            return newTreeNode;
+        }
+
         public JsonObjectCollection LoadJson(string filePath)
         {
             JsonObjectCollection json = JsonManager.LoadJsonFile(filePath);
@@ -25,9 +33,6 @@ namespace JsonEditor
 
         public void SaveJson(JsonObjectCollection json, string filePath)
         {
-            if (!File.Exists(filePath))
-                return;
-
             using (StreamWriter sw = new StreamWriter(filePath, false))
             {
                 json.WriteTo(sw);
@@ -53,7 +58,8 @@ namespace JsonEditor
             }
             else if (json.GetType() == typeof(JsonObjectCollection))
             {
-                treeNode.Text = key;
+                //treeNode.Text = key;
+                treeNode.Text = treeNode.Level.ToString();
                 List<JsonObject> jsonList = json.GetValue() as List<JsonObject>;
                 for (int i = 0; i < jsonList.Count; i++)
                 {

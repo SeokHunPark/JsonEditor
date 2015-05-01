@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Json;
+using System.IO;
 
 namespace JsonEditor
 {
@@ -51,6 +52,8 @@ namespace JsonEditor
 
             openFileDialog1.Filter = "Json 파일(*.json)|*.json";
             openFileDialog1.FileName = "";
+
+            saveFileDialog1.Filter = "Json 파일(*.json)|*.json";
         }
 
         private void AddNode(string key, string valueType, string value)
@@ -182,12 +185,16 @@ namespace JsonEditor
 
         private void applyButton_Click(object sender, EventArgs e)
         {
+            if (!File.Exists(_filePath))
+            {
+                MessageBox.Show("경로에 파일이 존재하지 않습니다.", "Error", MessageBoxButtons.OK);
+            }
+
             if (_selectedNode == null)
                 return;
 
             string key = keyTextBox.Text;
             string value = "";
-
             if (_selectedNode.Tag.GetType() != typeof(JsonObjectCollection) || _selectedNode.Tag.GetType() != typeof(JsonArrayCollection))
             {
                 value = valueTextBox.Text;
@@ -195,7 +202,6 @@ namespace JsonEditor
 
             try
             {
-                //UpdateTreeNodeJson(_selectedNode, key, value);
                 _selectedNode.Tag = JsonManager.CreateJsonObject(key, value, typeComboBox.SelectedItem.ToString());
             }
             catch (Exception exception)
@@ -334,6 +340,25 @@ namespace JsonEditor
             jsonTreeView.SelectedNode = jsonTreeView.Nodes[0];
 
             _rootNode = tree;
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _filePath = "";
+            saveFileDialog1.FileName = "";
+            _rootNode = null;
+
+            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                _filePath = saveFileDialog1.FileName;
+                _rootNode = _jsonEditor.CreateJsonTreeNode();
+
+                JsonObjectCollection json = _jsonEditor.JsonTreeNodeToJsonCollection(_rootNode);
+                ViewOnTextBox(json);
+                ViewOnTreeView(json);
+
+                _jsonEditor.SaveJson(json, _filePath);
+            }
         }
     }
 }
