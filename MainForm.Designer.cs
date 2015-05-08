@@ -99,14 +99,18 @@
             // 
             // jsonTreeView
             // 
+            this.jsonTreeView.AllowDrop = true;
             this.jsonTreeView.Location = new System.Drawing.Point(392, 166);
             this.jsonTreeView.Name = "jsonTreeView";
             this.jsonTreeView.Size = new System.Drawing.Size(380, 370);
             this.jsonTreeView.TabIndex = 2;
+            this.jsonTreeView.DragDrop += new System.Windows.Forms.DragEventHandler(this.jsonTreeView_DragDrop);
+            this.jsonTreeView.DragEnter += new System.Windows.Forms.DragEventHandler(this.jsonTreeView_DragEnter);
             this.jsonTreeView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.jsonTreeView_MouseDown);
             // 
             // jsonTextBox
             // 
+            this.jsonTextBox.AllowDrop = true;
             this.jsonTextBox.Location = new System.Drawing.Point(12, 27);
             this.jsonTextBox.Multiline = true;
             this.jsonTextBox.Name = "jsonTextBox";
@@ -114,6 +118,8 @@
             this.jsonTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.jsonTextBox.Size = new System.Drawing.Size(370, 509);
             this.jsonTextBox.TabIndex = 3;
+            this.jsonTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.jsonTextBox_DragDrop);
+            this.jsonTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.jsonTextBox_DragEnter);
             // 
             // keyLabel
             // 
@@ -218,6 +224,7 @@
             this.Controls.Add(this.jsonTreeView);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.HelpButton = true;
             this.MainMenuStrip = this.menuStrip;
             this.Name = "mainForm";

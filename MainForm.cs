@@ -289,22 +289,24 @@ namespace JsonEditor
         {
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                //_loadedJson = null;
-                //_loadedJson = _jsonEditor.LoadJson("D:\\WORK\\JsonEditor\\game_item.json");
-                JsonObjectCollection loadedJson = _jsonEditor.LoadJson(openFileDialog1.FileName);
-
-                if (loadedJson == null)
-                {
-                    MessageBox.Show("잘못된 Json 형식입니다.", "Error", MessageBoxButtons.OK);
-                    return;
-                }
-
-                _filePath = openFileDialog1.FileName;
-
-                ViewOnTextBox(loadedJson);
-                ViewOnTreeView(loadedJson);
-
+                ViewJsonFile(openFileDialog1.FileName);
             }
+        }
+
+        private void ViewJsonFile(string filePath)
+        {
+            JsonObjectCollection loadedJson = _jsonEditor.LoadJson(filePath);
+
+            if (loadedJson == null)
+            {
+                MessageBox.Show("잘못된 Json 형식입니다.", "Error", MessageBoxButtons.OK);
+                return;
+            }
+
+            _filePath = openFileDialog1.FileName;
+
+            ViewOnTextBox(loadedJson);
+            ViewOnTreeView(loadedJson);
         }
 
         private void ViewOnTextBox(JsonObjectCollection json)
@@ -369,6 +371,40 @@ namespace JsonEditor
         private void valueTextBox_Enter(object sender, EventArgs e)
         {
             _oldValueTextBoxText = valueTextBox.Text;
+        }
+
+        private void jsonTextBox_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string filePath = Path.GetFullPath(((string[])(e.Data.GetData(e.Data.GetFormats()[7])))[0].ToString());
+                ViewJsonFile(filePath);
+            }
+        }
+
+        private void jsonTextBox_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy | DragDropEffects.Scroll;
+            }
+        }
+
+        private void jsonTreeView_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string filePath = Path.GetFullPath(((string[])(e.Data.GetData(e.Data.GetFormats()[7])))[0].ToString());
+                ViewJsonFile(filePath);
+            }
+        }
+
+        private void jsonTreeView_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy | DragDropEffects.Scroll;
+            }
         }
     }
 }
