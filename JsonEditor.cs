@@ -59,7 +59,7 @@ namespace JsonEditor
             else if (json.GetType() == typeof(JsonObjectCollection))
             {
                 //treeNode.Text = key;
-                treeNode.Text = treeNode.Level.ToString();
+                //treeNode.Text = treeNode.Level.ToString();
                 List<JsonObject> jsonList = json.GetValue() as List<JsonObject>;
                 for (int i = 0; i < jsonList.Count; i++)
                 {

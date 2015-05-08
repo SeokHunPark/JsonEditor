@@ -20,6 +20,8 @@ namespace JsonEditor
         private TreeNode _rootNode;
         private TreeNode _selectedNode;
 
+        private string _oldValueTextBoxText;
+
         // constructor
         public mainForm()
         {
@@ -34,6 +36,8 @@ namespace JsonEditor
             _filePath = "";
             _rootNode = null;
             _selectedNode = null;
+
+            _oldValueTextBoxText = "";
 
             AddNodeForm addNodeForm = AddNodeForm.GetInstance();
             addNodeForm.sendNodeInfo += new AddNodeForm.sendNodeInfoDelegate(AddNode);
@@ -207,6 +211,7 @@ namespace JsonEditor
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message, "예외 발생", MessageBoxButtons.OK);
+                valueTextBox.Text = _oldValueTextBoxText;
                 return;
             }
 
@@ -359,6 +364,11 @@ namespace JsonEditor
 
                 _jsonEditor.SaveJson(json, _filePath);
             }
+        }
+
+        private void valueTextBox_Enter(object sender, EventArgs e)
+        {
+            _oldValueTextBoxText = valueTextBox.Text;
         }
     }
 }

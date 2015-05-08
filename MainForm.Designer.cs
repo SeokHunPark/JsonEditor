@@ -73,19 +73,19 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(100, 6);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -111,6 +111,7 @@
             this.jsonTextBox.Multiline = true;
             this.jsonTextBox.Name = "jsonTextBox";
             this.jsonTextBox.ReadOnly = true;
+            this.jsonTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.jsonTextBox.Size = new System.Drawing.Size(370, 509);
             this.jsonTextBox.TabIndex = 3;
             // 
@@ -154,6 +155,7 @@
             this.valueTextBox.Name = "valueTextBox";
             this.valueTextBox.Size = new System.Drawing.Size(204, 21);
             this.valueTextBox.TabIndex = 8;
+            this.valueTextBox.Enter += new System.EventHandler(this.valueTextBox_Enter);
             // 
             // typeComboBox
             // 
